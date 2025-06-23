@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikru.Positions.Api", "Hikru.Positions.Api\Hikru.Positions.Api.csproj", "{6DFD6EF2-1EBC-4BBD-BF10-C1918B1FF013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikru.Positions.Domain", "Hikru.Positions.Domain\Hikru.Positions.Domain.csproj", "{8147CE4F-4F57-41BA-95ED-A2BB5F73FF20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikru.Positions.Application", "Hikru.Positions.Application\Hikru.Positions.Application.csproj", "{98A6F6A1-C7D3-4615-B088-98E15F423C34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikru.Positions.Infrastructure", "Hikru.Positions.Infrastructure\Hikru.Positions.Infrastructure.csproj", "{C2F8E7DD-0B7C-492D-97EB-3CEB70F4BB9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikru.Positions.Tests", "Hikru.Positions.Tests\Hikru.Positions.Tests.csproj", "{8E58EC97-C8D0-4D43-9688-A8C23CAF11CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DFD6EF2-1EBC-4BBD-BF10-C1918B1FF013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DFD6EF2-1EBC-4BBD-BF10-C1918B1FF013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DFD6EF2-1EBC-4BBD-BF10-C1918B1FF013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DFD6EF2-1EBC-4BBD-BF10-C1918B1FF013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8147CE4F-4F57-41BA-95ED-A2BB5F73FF20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8147CE4F-4F57-41BA-95ED-A2BB5F73FF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8147CE4F-4F57-41BA-95ED-A2BB5F73FF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8147CE4F-4F57-41BA-95ED-A2BB5F73FF20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A6F6A1-C7D3-4615-B088-98E15F423C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A6F6A1-C7D3-4615-B088-98E15F423C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A6F6A1-C7D3-4615-B088-98E15F423C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A6F6A1-C7D3-4615-B088-98E15F423C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F8E7DD-0B7C-492D-97EB-3CEB70F4BB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F8E7DD-0B7C-492D-97EB-3CEB70F4BB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F8E7DD-0B7C-492D-97EB-3CEB70F4BB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F8E7DD-0B7C-492D-97EB-3CEB70F4BB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E58EC97-C8D0-4D43-9688-A8C23CAF11CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E58EC97-C8D0-4D43-9688-A8C23CAF11CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E58EC97-C8D0-4D43-9688-A8C23CAF11CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E58EC97-C8D0-4D43-9688-A8C23CAF11CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B81399F1-751C-4075-9767-590A2A6205F7}
+	EndGlobalSection
+EndGlobal

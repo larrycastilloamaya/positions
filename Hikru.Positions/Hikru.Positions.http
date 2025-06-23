@@ -1,0 +1,6 @@
+@Hikru.Positions_HostAddress = http://localhost:5185
+
+GET {{Hikru.Positions_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
