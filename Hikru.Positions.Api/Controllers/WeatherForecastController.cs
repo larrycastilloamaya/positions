@@ -1,4 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Hikru.Positions.Application.Positions.Commands;
+using Hikru.Positions.Application.Positions.Queries.GetAllFromApex;
+using Hikru.Positions.Infrastructure;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hikru.Positions.Api.Controllers
 {
@@ -6,6 +11,8 @@ namespace Hikru.Positions.Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,21 +20,17 @@ namespace Hikru.Positions.Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IActionResult> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var result = await _mediator.Send(new GetAllFromApexQuery());
+            return Ok(result);
         }
     }
 }
