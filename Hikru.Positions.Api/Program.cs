@@ -16,14 +16,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowFrontEnd", policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://postionsfront.netlify.app" // reemplaza con tu dominio real
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CreatePositionCommand).Assembly);
@@ -36,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowLocalhost");
+app.UseCors("AllowFrontEnd");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
