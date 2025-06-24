@@ -33,13 +33,6 @@ namespace Hikru.Positions.Api.Controllers
             return Ok(new { Id = id, Message = "GET /positions/{id} en construcción" });
         }
 
-        [HttpGet("test-db")]
-        public async Task<IActionResult> TestDb([FromServices] ApplicationDbContext context)
-        {
-            var count = await context.Positions.CountAsync();
-            return Ok(new { success = true, total = count });
-        }
-
 
         [HttpGet]
         public async Task<IActionResult> Get()
