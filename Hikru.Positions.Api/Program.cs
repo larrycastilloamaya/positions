@@ -40,8 +40,7 @@ builder.Services.AddMediatR(cfg =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true) // para que también funcione en producción
 {
     app.UseSwagger();
     app.UseSwaggerUI();
