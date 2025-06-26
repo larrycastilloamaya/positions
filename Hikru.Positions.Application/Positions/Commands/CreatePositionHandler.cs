@@ -1,35 +1,19 @@
 ﻿using Hikru.Positions.Application.Interfaces;
-using Hikru.Positions.Domain.Entities;
 using MediatR;
 
-namespace Hikru.Positions.Application.Positions.Commands
+namespace Hikru.Positions.Application.Positions.Commands.Create;
+
+public class CreatePositionHandler : IRequestHandler<CreatePositionCommand, bool>
 {
-    public class CreatePositionHandler : IRequestHandler<CreatePositionCommand, int>
+    private readonly IApexPositionService _service;
+
+    public CreatePositionHandler(IApexPositionService service)
     {
-        private readonly IApplicationDbContext _context;
+        _service = service;
+    }
 
-        public CreatePositionHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<int> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
-        {
-            var position = new Position
-            {
-                Title = request.Title,
-                Description = request.Description,
-                Location = request.Location,
-                Status = request.Status,
-                RecruiterId = request.RecruiterId,
-                DepartmentId = request.DepartmentId,
-                Budget = request.Budget,
-                ClosingDate = request.ClosingDate
-            };
-
-            _context.Positions.Add(position);
-            await _context.SaveChangesAsync(cancellationToken);
-            return position.Id;
-        }
+    public async Task<bool> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
+    {
+        return await _service.CreateAsync(request.Dto, cancellationToken);
     }
 }

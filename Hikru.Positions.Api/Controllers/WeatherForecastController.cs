@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Hikru.Positions.Application.Positions.Commands;
 using Hikru.Positions.Application.Positions.Queries.GetAllFromApex;
 using Hikru.Positions.Infrastructure;
 using MediatR;

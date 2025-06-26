@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Hikru.Positions.Domain\Hikru.Positions.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Departments\Commands\" />
+  </ItemGroup>
+
 </Project>

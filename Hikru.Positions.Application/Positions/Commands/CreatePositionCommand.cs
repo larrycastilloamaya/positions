@@ -1,16 +1,14 @@
-﻿using MediatR;
+﻿using Hikru.Positions.Application.Positions.Dtos;
+using MediatR;
 
-namespace Hikru.Positions.Application.Positions.Commands
+namespace Hikru.Positions.Application.Positions.Commands.Create;
+
+public class CreatePositionCommand : IRequest<bool>
 {
-    public class CreatePositionCommand : IRequest<int>
+    public PositionCreateDto Dto { get; }
+
+    public CreatePositionCommand(PositionCreateDto dto)
     {
-        public string Title { get; set; } = null!;
-        public string Description { get; set; } = null!;
-        public string Location { get; set; } = null!;
-        public string Status { get; set; } = "draft";
-        public int RecruiterId { get; set; }
-        public int DepartmentId { get; set; }
-        public decimal Budget { get; set; }
-        public DateTime? ClosingDate { get; set; }
+        Dto = dto;
     }
 }

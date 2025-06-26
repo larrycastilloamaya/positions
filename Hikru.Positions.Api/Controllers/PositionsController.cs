@@ -1,9 +1,11 @@
-﻿using Hikru.Positions.Application.Positions.Commands;
+﻿using Hikru.Positions.Application.Positions.Commands.Create;
+using Hikru.Positions.Application.Positions.Commands.Delete;
+using Hikru.Positions.Application.Positions.Commands.Update;
+using Hikru.Positions.Application.Positions.Dtos;
 using Hikru.Positions.Application.Positions.Queries.GetAllFromApex;
-using Hikru.Positions.Infrastructure;
+using Hikru.Positions.Application.Positions.Queries.GetByIdFromApex;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hikru.Positions.Api.Controllers
 {
@@ -20,17 +22,33 @@ namespace Hikru.Positions.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreatePositionCommand command)
+        public async Task<IActionResult> Create([FromBody] PositionCreateDto dto)
         {
-            var id = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id }, command);
+            var success = await _mediator.Send(new CreatePositionCommand(dto));
+            return success ? Ok("Posición creada correctamente.") : BadRequest("No se pudo crear la posición.");
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, [FromBody] UpdatePositionDto dto)
         {
-            // Próximamente implementaremos la query CQRS
-            return Ok(new { Id = id, Message = "GET /positions/{id} en construcción" });
+            dto.Id = id; // aseguramos que el id del path se use
+            var result = await _mediator.Send(new UpdatePositionCommand(dto));
+            return result ? Ok("Posición actualizada.") : BadRequest("Error al actualizar.");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var success = await _mediator.Send(new DeletePositionCommand(id));
+            return success ? Ok("Posición eliminada correctamente.") : NotFound("No se pudo eliminar la posición.");
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var position = await _mediator.Send(new GetByIdFromApexQuery(id));
+            return position is not null ? Ok(position) : NotFound("Posición no encontrada.");
         }
 
 
@@ -40,5 +58,6 @@ namespace Hikru.Positions.Api.Controllers
             var result = await _mediator.Send(new GetAllFromApexQuery());
             return Ok(result);
         }
+
     }
 }

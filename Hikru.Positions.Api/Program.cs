@@ -1,5 +1,7 @@
+using Hikru.Positions.Application.Departments.Queries.GetAllFromApex;
 using Hikru.Positions.Application.Interfaces;
-using Hikru.Positions.Application.Positions.Commands;
+using Hikru.Positions.Application.Recruiters.Queries.GetAllFromApex;
+using Hikru.Positions.Application.Positions.Commands.Update;
 using Hikru.Positions.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,11 +28,16 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-
 builder.Services.AddMediatR(cfg =>
 {
-    cfg.RegisterServicesFromAssembly(typeof(CreatePositionCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetAllDepartmentsHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetAllRecruitersHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(UpdatePositionHandler).Assembly);
 });
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
