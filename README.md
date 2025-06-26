@@ -13,6 +13,17 @@ Este proyecto es una API REST desarrollada con **.NET 8** usando Clean Architect
 - Consumo de APIS mediante HttpClient
 - xUnit + Moq (para testing)
 
+
+---
+
+## ☁️ Infraestructura y Despliegue
+
+- 🔗 **Base de datos**: Oracle Cloud Autonomous Database en la nube.
+- 🚀 **Backend desplegado en**: [Microsoft Azure App Service](https://azure.microsoft.com/)
+- ⚙️ **CI/CD**: GitHub Actions (build + deploy automático)
+
+El backend se despliega automáticamente mediante un pipeline de GitHub Actions configurado en el repositorio. El archivo `main_positionshikru.yml` construye el proyecto, publica los artefactos y despliega directamente a Azure.
+
 ---
 
 ## 📁 Estructura de Carpetas
@@ -69,4 +80,4 @@ dotnet test
 
 - Arquitectura limpia basada en capas desacopladas.
 - MediatR para comandos y queries con CQRS.
-- Inyección de dependencias mediante `Program.cs`.
+
