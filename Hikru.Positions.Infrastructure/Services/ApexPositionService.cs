@@ -1,6 +1,8 @@
 ﻿using Hikru.Positions.Application.Interfaces;
 using Hikru.Positions.Application.Positions.Dtos;
+using Hikru.Positions.Infrastructure.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -11,37 +13,40 @@ public class ApexPositionService : IApexPositionService
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger<ApexPositionService> _logger;
+    private readonly ApexApiOptions _options;
 
-    public ApexPositionService(HttpClient httpClient, ILogger<ApexPositionService> logger)
+    public ApexPositionService(
+        HttpClient httpClient,
+        ILogger<ApexPositionService> logger,
+        IOptions<ApexApiOptions> options)
     {
         _httpClient = httpClient;
         _logger = logger;
+        _options = options.Value;
     }
 
     public async Task<bool> CreateAsync(PositionCreateDto dto, CancellationToken cancellationToken)
     {
-        var url = "https://g5fede71fbf5d03-hikrupositionsdb.adb.mx-queretaro-1.oraclecloudapps.com/ords/admin/positions/create";
+        var url = $"{_options.BaseUrl}/create";
 
-            var response = await _httpClient.PostAsJsonAsync(url, new
-            {
-                title = dto.Title,
-                description = dto.Description,
-                location = dto.Location,
-                status = dto.Status,
-                recruiter_id = dto.RecruiterId,
-                department_id = dto.DepartmentId,
-                budget = dto.Budget,
-                closing_date = dto.ClosingDate?.ToString("yyyy-MM-dd")
-            }, cancellationToken);
+        var response = await _httpClient.PostAsJsonAsync(url, new
+        {
+            title = dto.Title,
+            description = dto.Description,
+            location = dto.Location,
+            status = dto.Status,
+            recruiter_id = dto.RecruiterId,
+            department_id = dto.DepartmentId,
+            budget = dto.Budget,
+            closing_date = dto.ClosingDate?.ToString("yyyy-MM-dd")
+        }, cancellationToken);
 
-            return response.IsSuccessStatusCode;
-
+        return response.IsSuccessStatusCode;
     }
-    
 
     public async Task<List<PositionDto>> GetAllAsync()
     {
-        var url = "https://g5fede71fbf5d03-hikrupositionsdb.adb.mx-queretaro-1.oraclecloudapps.com/ords/admin/positions/getall";
+        var url = $"{_options.BaseUrl}/getall";
 
         var response = await _httpClient.GetAsync(url);
 
@@ -60,7 +65,7 @@ public class ApexPositionService : IApexPositionService
 
     public async Task<bool> UpdateAsync(UpdatePositionDto dto, CancellationToken cancellationToken)
     {
-        var url = $"https://g5fede71fbf5d03-hikrupositionsdb.adb.mx-queretaro-1.oraclecloudapps.com/ords/admin/positions/{dto.Id}";
+        var url = $"{_options.BaseUrl}/{dto.Id}";
 
         var response = await _httpClient.PutAsJsonAsync(url, new
         {
@@ -81,12 +86,12 @@ public class ApexPositionService : IApexPositionService
             return false;
         }
 
-        return response.IsSuccessStatusCode;
+        return true;
     }
 
     public async Task<bool> DeleteAsync(string id, CancellationToken cancellationToken)
     {
-        var url = $"https://g5fede71fbf5d03-hikrupositionsdb.adb.mx-queretaro-1.oraclecloudapps.com/ords/admin/positions/{id}";
+        var url = $"{_options.BaseUrl}/{id}";
 
         try
         {
@@ -111,7 +116,7 @@ public class ApexPositionService : IApexPositionService
 
     public async Task<PositionDto?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var url = $"https://g5fede71fbf5d03-hikrupositionsdb.adb.mx-queretaro-1.oraclecloudapps.com/ords/admin/positions/{id}";
+        var url = $"{_options.BaseUrl}/{id}";
 
         try
         {
@@ -124,8 +129,7 @@ public class ApexPositionService : IApexPositionService
                 return null;
             }
 
-            var result = await response.Content.ReadFromJsonAsync<PositionDto>(cancellationToken: cancellationToken);
-            return result;
+            return await response.Content.ReadFromJsonAsync<PositionDto>(cancellationToken: cancellationToken);
         }
         catch (Exception ex)
         {
@@ -133,7 +137,4 @@ public class ApexPositionService : IApexPositionService
             return null;
         }
     }
-
-
-
 }

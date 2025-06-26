@@ -1,11 +1,7 @@
 using Hikru.Positions.Application.Departments.Queries.GetAllFromApex;
-using Hikru.Positions.Application.Interfaces;
-using Hikru.Positions.Application.Recruiters.Queries.GetAllFromApex;
 using Hikru.Positions.Application.Positions.Commands.Update;
-using Hikru.Positions.Infrastructure;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
+using Hikru.Positions.Application.Recruiters.Queries.GetAllFromApex;
+using Hikru.Positions.Infrastructure.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +18,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:5173",
-                "https://postionsfront.netlify.app" // reemplaza con tu dominio real
+                "https://postionsfront.netlify.app" 
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -37,6 +33,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.Configure<ApexApiOptions>(builder.Configuration.GetSection("ApexApi"));
 
 var app = builder.Build();
 
