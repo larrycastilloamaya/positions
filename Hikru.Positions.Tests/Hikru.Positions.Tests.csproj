@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Hikru.Positions.Application\Hikru.Positions.Application.csproj" />
     <ProjectReference Include="..\Hikru.Positions.Domain\Hikru.Positions.Domain.csproj" />
+    <ProjectReference Include="..\Hikru.Positions.Infrastructure\Hikru.Positions.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
